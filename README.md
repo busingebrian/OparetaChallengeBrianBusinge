@@ -1,0 +1,5 @@
+# OparetaChallengeBrianBusinge
+# Android QA coding assessment
+# forked this Android project from https://github.com/opareta/OparetaChallenge
+# Logging any issues in the app using Sentry
+# Using continuous integration 

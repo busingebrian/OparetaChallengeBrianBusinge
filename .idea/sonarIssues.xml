@@ -3,17 +3,27 @@
   <component name="issues">
     <option name="index">
       <map>
-        <entry key="/Dummy.txt">
+        <entry key="$PROJECT_DIR$/app/build.gradle">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/.idea/gradle.xml">
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/leroy/oparetachallenge/MyActivity.java">
           <value>
             <set />
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/app/src/main/java/com/leroy/oparetachallenge/utils/NetworkInterceptor.kt">
+        <entry key="$PROJECT_DIR$/app/src/androidTest/java/com/leroy/oparetachallenge/MyActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build.gradle">
           <value>
             <set />
           </value>

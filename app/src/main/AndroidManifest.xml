@@ -12,6 +12,13 @@
         android:supportsRtl="true"
         android:name=".App"
         android:theme="@style/Theme.OparetaChallenge">
+
+        <meta-data android:name="io.sentry.dsn" android:value="https://examplePublicKey@o0.ingest.sentry.io/0" />
+        <activity android:name="MyActivity"
+            android:exported="true">
+
+            </activity>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

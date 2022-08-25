@@ -1,10 +1,18 @@
 stages:
   - coverageTest
   - build
+  - sonarqube
 build-test:
   stage: coverageTest
   before_script:
     - chmod +x ./gradlew
     - export GRADLE_USER_HOME=$PWD/.gradle
   script:
-    - ./gradlew app:testDevDebugUnitTestCoverageVerification
+    - ./gradlew app:createDebugCoverageReport
+
+ sonarqube_stage:
+   stage: sonarqube
+   script:
+      ./gradlew clean jacocoTestReport sonarqube
+      -Dsonar.host.url=http://localhost:9000/
+      -Dsonar.login=89babde2109fcaeaf595d24c047d6d30382d9227

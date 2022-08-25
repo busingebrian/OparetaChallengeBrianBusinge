@@ -26,7 +26,7 @@ sonarqube {
         property "sonar.test.inclusions", "**/*Test*/**"
         property "sonar.sourceEncoding", "UTF-8"
         property "sonar.sources", "src/main/java"
-        property "Sonar.Coverage.Jacoco.Xmlreportpaths","$project.projectDir/app/build/reports/jacoco/debug/jacoco.xml"
+        property "Sonar.Coverage.Jacoco.Xmlreportpaths","$project.projectDir/app/build/reports/coverage/androidTest/debug/report.xml"
         property "sonar.exclusions", '**/*Test*/**,' +
                 '*.json,' +
                 '**/*test*/**,' +

@@ -3,15 +3,34 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'jacoco'
 }
-
+jacoco {
+    toolVersion = '0.8.7'
+    reportsDir = file("$buildDir/reports")
+}
+ext{
+    coverageSourceDirs = 'src/test/java'
+}
 android {
-    compileSdk 32
+    compileSdk 31
     buildFeatures.viewBinding = true
-    defaultConfig {
+    testOptions {
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+                excludes = ['jdk.internal.*']
+            }
+        }
+        unitTests.returnDefaultValues = true
+    }
+    defaultConfig{
+        configurations.all {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+        }
         applicationId "com.leroy.oparetachallenge"
         minSdk 21
-        targetSdk 32
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -26,6 +45,7 @@ android {
         debug {
             multiDexEnabled true
             minifyEnabled true
+            testCoverageEnabled true
         }
     }
     compileOptions {
@@ -36,11 +56,29 @@ android {
         jvmTarget = '1.8'
     }
 }
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.setFrom(files("${project.projectDir}/src/main"))
+    classDirectories.setFrom(files([debugTree]))
+    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code-coverage/connected/*coverage.exec"
+    ]))
+}
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
-    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'androidx.core:core-ktx:1.9.0-beta01'
+    implementation 'androidx.appcompat:appcompat:1.6.0-beta01'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.room:room-runtime:2.4.3'

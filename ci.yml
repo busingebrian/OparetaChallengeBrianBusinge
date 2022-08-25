@@ -1,0 +1,10 @@
+stages:
+  - coverageTest
+  - build
+build-test:
+  stage: coverageTest
+  before_script:
+    - chmod +x ./gradlew
+    - export GRADLE_USER_HOME=$PWD/.gradle
+  script:
+    - ./gradlew app:testDevDebugUnitTestCoverageVerification

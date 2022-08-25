@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply plugin: "org.sonarqube"
 buildscript {
     ext.kotlin_version = "1.4.21"
     ext.jacocoVersion = '0.8.7'
@@ -7,20 +8,33 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.4'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.10"
         classpath "org.jacoco:org.jacoco.core:0.8.7"
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:3.3"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
 
-
-plugins {
-    id "io.sentry.android.gradle" version "3.1.4"
+sonarqube {
+    properties {
+        property "sonar.projectName", "OparetaChallengeBrianBusinge"
+        property "sonar.projectKey", "OparetaChallengeBrianBusinge"
+        property "sonar.tests", ["src/test/java"]
+        property "sonar.test.inclusions", "**/*Test*/**"
+        property "sonar.sourceEncoding", "UTF-8"
+        property "sonar.sources", "src/main/java"
+        property "Sonar.Coverage.Jacoco.Xmlreportpaths","$project.projectDir/app/build/reports/jacoco/debug/jacoco.xml"
+        property "sonar.exclusions", '**/*Test*/**,' +
+                '*.json,' +
+                '**/*test*/**,' +
+                '**/.gradle/**,' +
+                '**/R.class' +
+                '**/*Generated.java'
+    }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

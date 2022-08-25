@@ -1,6 +1,5 @@
-# OparetaChallengeBrianBusinge
 # Android QA coding assessment
-# forked this Android project from https://github.com/opareta/OparetaChallenge
+- forked this Android project from https://github.com/opareta/OparetaChallenge
 # Using continuous integration 
 # added jacoco for code coverage
 run: 

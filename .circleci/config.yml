@@ -2,7 +2,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/OparetaChallengeBrianBusinge
+    working_directory: ~/OparetaChallengeBrianBusinge/
     docker:
       - image: circleci/android:api-30
     environment:

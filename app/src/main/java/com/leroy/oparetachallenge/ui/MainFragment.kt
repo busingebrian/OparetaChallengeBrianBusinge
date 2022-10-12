@@ -78,10 +78,10 @@ class MainFragment : Fragment() {
                 ErrorHandler.showError(it.ex)
             if (it.data?.data != null) {
                 adapter.quotes = it.data.data.quote
-//                Timber.d(">>> Data: ${it.data.data}")
-//                for (key in it.data.data.quote.keys) {
-//                    Timber.d(">>> Key: $key")
-//                }
+                Timber.d(">>> Data: ${it.data.data}")
+                for (key in it.data.data.quote.keys) {
+                    Timber.d(">>> Key: $key")
+                }
             }
         }
     }

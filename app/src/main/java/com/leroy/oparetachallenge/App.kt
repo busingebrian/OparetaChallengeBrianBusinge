@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.viewbinding.BuildConfig
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.leroy.oparetachallenge.api.ApiService
@@ -55,16 +56,6 @@ class App : Application() {
             if (priority == Log.VERBOSE || priority == Log.DEBUG) {
                 return
             }
-
-//            FakeCrashLibrary.log(priority, tag, message);
-//
-//            if (t != null) {
-//                if (priority == Log.ERROR) {
-//                    FakeCrashLibrary.logError(t);
-//                } else if (priority == Log.WARN) {
-//                    FakeCrashLibrary.logWarning(t);
-//                }
-//            }
         }
     }
 

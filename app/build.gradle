@@ -1,23 +1,26 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'kotlin-kapt'
-    id 'jacoco'
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
+group = 'me.rahul'
+version = '0.0.1'
 //    id "io.sentry.android.gradle" version "3.1.4"
-}
-jacoco {
-    toolVersion = '0.8.7'
-    reportsDir = file("$buildDir/reports")
+
+sourceSets {
+    main {
+        resources.includes = ['**/jacoco-agent.properties']
+    }
 }
 ext{
     coverageSourceDirs = 'src/test/java'
 }
 android {
-    compileSdk 31
+    compileSdk 32
     buildFeatures.viewBinding = true
     testOptions {
         unitTests.all {
+
             jacoco {
                 includeNoLocationClasses = true
                 excludes = ['jdk.internal.*']
@@ -31,7 +34,7 @@ android {
         }
         applicationId "com.leroy.oparetachallenge"
         minSdk 21
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -41,11 +44,12 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            testCoverageEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
             multiDexEnabled true
-            minifyEnabled true
+//            minifyEnabled true
             testCoverageEnabled true
         }
     }
@@ -54,32 +58,23 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
-}
-task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
+    task copyAPKtoAsset(type: Copy) {
+        from "/Users/fenix2/Documents/Dev/opareta/OparetaChallengeBrianBusinge/app/build/outputs/apk/debug/app-debug.apk"
+        into "/Users/fenix2/Documents/Dev/opareta/OparetaChallengeBrianBusinge/app/src/main/assets"
     }
 
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/debug/classes", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories.setFrom(files("${project.projectDir}/src/main"))
-    classDirectories.setFrom(files([debugTree]))
-    executionData.setFrom(fileTree(dir: "$buildDir", includes: [
-            "jacoco/testDebugUnitTest.exec",
-            "outputs/code-coverage/connected/*coverage.exec"
-    ]))
+    afterEvaluate {
+        packageDebug.finalizedBy(copyAPKtoAsset)
+    }
 }
+apply from: "/Users/fenix2/Documents/Dev/opareta/OparetaChallengeBrianBusinge/app/jacoco.gradle"
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.4.2'
-    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.room:room-runtime:2.4.3'
@@ -93,9 +88,11 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 //    implementation 'io.sentry:sentry-android:6.4.0'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
     kapt 'androidx.room:room-compiler:2.4.3'
 }

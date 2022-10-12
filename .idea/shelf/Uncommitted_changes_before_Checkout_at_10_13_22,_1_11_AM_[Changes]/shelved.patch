@@ -1,0 +1,19 @@
+Index: ci.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>stages:\n  - coverageTest\n  - build\n  - sonarqube\nbuild-test:\n  stage: coverageTest\n  before_script:\n    - chmod +x ./gradlew\n    - export GRADLE_USER_HOME=$PWD/.gradle\n  script:\n    - ./gradlew testDebugUnitTestCoverage\n\n sonarqube_stage:\n   stage: sonarqube\n   script:\n      ./gradlew sonarqube\n      -Dsonar.host.url=http://localhost:9000/\n      -Dsonar.login=89babde2109fcaeaf595d24c047d6d30382d9227\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ci.yml b/ci.yml
+--- a/ci.yml	(revision 257f8a30838b87723fdb39dbb79ca41af5a9e060)
++++ b/ci.yml	(date 1665610798320)
+@@ -8,7 +8,7 @@
+     - chmod +x ./gradlew
+     - export GRADLE_USER_HOME=$PWD/.gradle
+   script:
+-    - ./gradlew testDebugUnitTestCoverage
++    - ./gradlew createDebugCoverageReport
+ 
+  sonarqube_stage:
+    stage: sonarqube

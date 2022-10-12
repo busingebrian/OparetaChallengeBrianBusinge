@@ -8,7 +8,7 @@ build-test:
     - chmod +x ./gradlew
     - export GRADLE_USER_HOME=$PWD/.gradle
   script:
-    - ./gradlew testDebugUnitTestCoverage
+    - ./gradlew createDebugCoverageReport
 
  sonarqube_stage:
    stage: sonarqube

@@ -4,7 +4,7 @@ jobs:
   build:
     working_directory: ~/OparetaChallengeBrianBusinge/
     docker:
-      - image: circleci/android:api-30
+      - image: circleci/android:api-32
     environment:
       JVM_OPTS: -Xmx3200m
     steps:

@@ -69,7 +69,7 @@ android {
         packageDebug.finalizedBy(copyAPKtoAsset)
     }
 }
-apply from: "/Users/fenix2/Documents/Dev/opareta/OparetaChallengeBrianBusinge/app/jacoco.gradle"
+apply from: "jacoco.gradle"
 
 dependencies {
 

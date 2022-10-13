@@ -1,0 +1,35 @@
+
+version: 2
+jobs:
+  build:
+    working_directory: ~/OparetaChallengeBrianBusinge/
+    docker:
+      - image: circleci/android:api-30
+    environment:
+      JVM_OPTS: -Xmx3200m
+    steps:
+      - checkout
+      - restore_cache:
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: chmod permissions
+          command: chmod +x ./gradlew
+      - save_cache:
+          paths:
+            - ~/.gradle
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+      - run:
+          name: Run Tests
+          command: ./gradlew test
+      - run:
+          name: Run coverageReport
+          command: ./gradlew createDebugCoverageReport
+      - run:
+          name: Run sonarqube
+          command: ./gradlew sonarqube
+
+      - store_artifacts:
+          path: app/build/reports
+          destination: reports
+      - store_test_results:
+          path: app/build/test-results
